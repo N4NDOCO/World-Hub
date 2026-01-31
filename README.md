@@ -342,4 +342,46 @@ Tabs.Farm:AddSection("Farm Principal 🌾"):AddToggle("AutoFarm", {Title = "Auto
 Tabs.Farm:AddSection(""):AddToggle("AutoQuest", {Title = "Auto Pegar Quest 📜", Default = true})
 Tabs.Farm:AddSection(""):AddSlider("FarmDelay", {Title = "Velocidade Farm (delay)", Min = 0.05, Max = 0.4, Default = 0.12, Rounding = 2, Callback = function(v) WH.FarmDelay = v end})
 
-Tabs.Combat:AddSection("Combate ⚔️"):AddToggle("FastAttack", {Title = "Fast Attack ⚡", Default 
+Tabs.Combat:AddSection("Combate ⚔️"):AddToggle("FastAttack", {Title = "Fast Attack ⚡", Default = true})
+Tabs.Combat:AddSection(""):AddToggle("AutoHaki", {Title = "Auto Haki 🛡️", Default = true})
+Tabs.Combat:AddSection(""):AddToggle("AutoDeathStep", {Title = "Auto Death Step", Default = false})
+Tabs.Combat:AddSection(""):AddToggle("AutoDragonTalon", {Title = "Auto Dragon Talon", Default = false})
+Tabs.Combat:AddSection(""):AddToggle("AutoElectricClaw", {Title = "Auto Electric Claw", Default = false})
+Tabs.Combat:AddSection(""):AddToggle("AutoSuperhuman", {Title = "Auto Superhuman", Default = false})
+
+Tabs.Fruit:AddSection("Frutas 🍓"):AddToggle("BringFruit", {Title = "Bring Fruits 🍇", Default = false})
+Tabs.Fruit:AddSection(""):AddToggle("AutoAwakenFruit", {Title = "Auto Awaken Fruits", Default = false})
+
+Tabs.RaceV4:AddSection("Auto Race V4 🔮"):AddToggle("AutoV4", {Title = "Auto V4 Full", Default = false})
+Tabs.RaceV4:AddSection(""):AddToggle("FullMoonHop", {Title = "Full Moon Server Hop 🌕", Default = false})
+Tabs.RaceV4:AddSection(""):AddSlider("HopDelay", {Title = "Delay Hop (seg)", Min = 60, Max = 600, Default = 300, Rounding = 0, Callback = function(v) WH.HopDelay = v end})
+Tabs.RaceV4:AddSection(""):AddToggle("AutoMirage", {Title = "Auto Mirage", Default = false})
+
+Tabs.Items:AddSection("Auto Items"):AddToggle("AutoSoulGuitar", {Title = "Auto Soul Guitar 🎸", Default = false})
+Tabs.Items:AddSection(""):AddToggle("AutoCDK", {Title = "Auto CDK", Default = false})
+Tabs.Items:AddSection(""):AddToggle("AutoTTK", {Title = "Auto TTK", Default = false})
+Tabs.Items:AddSection(""):AddToggle("AutoHollowScythe", {Title = "Auto Hollow Scythe (Farm Soul Reaper)", Default = false})
+Tabs.Items:AddSection(""):AddToggle("AutoSharkmanV1", {Title = "Auto Sharkman V1", Default = false})
+Tabs.Items:AddSection(""):AddToggle("AutoGodhuman", {Title = "Auto Godhuman", Default = false})
+
+Tabs.Misc:AddSection("Misc"):AddToggle("AutoVolcano", {Title = "Auto Vulcão", Default = false})
+Tabs.Misc:AddSection(""):AddButton({Title = "Teleport Mirage 🌀", Callback = function() Fluent:Notify({Title="Teleport", Content = "Tentando TP Mirage..."}) end})
+Tabs.Misc:AddSection(""):AddToggle("AutoStats", {Title = "Auto Stats", Default = false})
+Tabs.Misc:AddSection(""):AddToggle("AutoRaid", {Title = "Auto Raid", Default = false})
+Tabs.Misc:AddSection(""):AddToggle("BossFarm", {Title = "Boss Farm (ex: Soul Reaper)", Default = false})
+Tabs.Misc:AddSection(""):AddToggle("ESP", {Title = "ESP Mobs/Fruits", Default = false})
+
+Tabs.Settings:AddSection("Ajustes UI ⚙️"):AddSlider("UIScale", {Title = "Tamanho UI", Min = 0.8, Max = 1.5, Default = 1.0, Rounding = 2, Callback = function(v) Window:Resize(UDim2.fromOffset(620*v, 520*v)) end})
+Tabs.Settings:AddSection(""):AddColorpicker("BorderColor", {Title = "Cor Bordas", Default = Color3.fromRGB(90,90,100), Callback = function(v) Colors.Border = v Window:SetAccentColor(v) end})
+Tabs.Settings:AddSection(""):AddButton({Title = "Destroy Hub 🗑️", Callback = function() Fluent:Destroy() end})
+
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+InterfaceManager:SetFolder("WorldHub")
+SaveManager:SetFolder("WorldHub")
+SaveManager:BuildConfigSection(Tabs.Settings)
+SaveManager:LoadAutoloadConfig()
+
+Fluent:Notify({Title = "World Hub", Content = "Carregado com sucesso • Todas funções adicionadas • Seguro", Duration = 6})
+
+print("World Hub carregado com segurança")
