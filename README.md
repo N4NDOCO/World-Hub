@@ -1,5 +1,4 @@
--- World Hub | Blox Fruits Premium 2026 | Lv 2800+ | Todas Quests Sea 1/2/3
--- Atualizado para Update 22 | Seguro, sem key, sem log, sem webhook | Mobile/PC Otimizado
+-- World Hub | Blox Fruits 2026 | Versão Leve | Auto Farm + Quests Completas
 
 repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
 
@@ -17,53 +16,36 @@ elseif PlaceId == 4442272183 then World2 = true
 elseif PlaceId == 7449423635 then World3 = true
 else LP:Kick("Mundo não suportado") return end
 
-local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Source.lua"))()
-local Library = Fluent.Library  -- Para ToggleUI
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
 local Window = Fluent:CreateWindow({
     Title = "World Hub",
-    SubTitle = "Premium • Lv 2800+ • Seguro",
-    TabWidth = 160,
-    Size = UDim2.fromOffset(620, 520),
-    Acrylic = true,
+    SubTitle = "Melhor Script 2026 - Leve",
+    TabWidth = 140,
+    Size = UDim2.fromOffset(520, 440),  -- Menor para mobile
+    Acrylic = false,  -- Desativado para mais leveza
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.RightControl
 })
 
--- Logo "World Blox" como banner na UI
-local Banner = Instance.new("ImageLabel")
-Banner.Size = UDim2.new(1,0,0,100)
-Banner.Position = UDim2.new(0,0,0,0)
-Banner.BackgroundTransparency = 1
-Banner.Image = "rbxassetid://1234567890"  -- Substitua por ID real do upload da imagem "World Blox" no Roblox (faça upload e pegue assetid)
-Banner.Parent = Window.MainFrame  -- Ajuste se necessário para o frame principal do Fluent
-
--- Botão minimize circular pequeno (estilo Delta) - corrigido para funcionar
-local MinBtn = Instance.new("ImageButton")
-MinBtn.Size = UDim2.new(0,45,0,45)
-MinBtn.Position = UDim2.new(0.95, -45, 0.02, 0)  -- Ajustado para canto superior direito
+-- Minimize simples (botão flutuante)
+local MinBtn = Instance.new("TextButton")
+MinBtn.Size = UDim2.new(0,40,0,40)
+MinBtn.Position = UDim2.new(0.95, -40, 0.02, 0)
 MinBtn.BackgroundColor3 = Color3.fromRGB(30,30,35)
-MinBtn.Image = "rbxassetid://7072721032"
+MinBtn.Text = "-"
+MinBtn.TextColor3 = Color3.fromRGB(255,255,255)
+MinBtn.Font = Enum.Font.SourceSansBold
+MinBtn.TextSize = 20
 MinBtn.Parent = game.CoreGui:FindFirstChild("RobloxGui") or LP:WaitForChild("PlayerGui")
-Instance.new("UICorner", MinBtn).CornerRadius = UDim.new(1,0)
-MinBtn.MouseButton1Click:Connect(function() Library:ToggleUI() end)
-
-local Colors = {
-    Background = Color3.fromRGB(10,10,10),
-    Accent = Color3.fromRGB(255,255,255),
-    Button = Color3.fromRGB(45,45,50),
-    Border = Color3.fromRGB(90,90,100)
-}
-Window:SetAccentColor(Colors.Accent)
+local Corner = Instance.new("UICorner", MinBtn); Corner.CornerRadius = UDim.new(1,0)
+MinBtn.MouseButton1Click:Connect(function() Fluent:ToggleUI() end)
 
 local Tabs = {
-    Farm = Window:AddTab({ Title = "🌾 Farm" }),
-    Combat = Window:AddTab({ Title = "⚔️ Combat" }),
-    Fruit = Window:AddTab({ Title = "🍓 Fruit" }),
-    RaceV4 = Window:AddTab({ Title = "🔮 Race V4" }),
-    Items = Window:AddTab({ Title = "🗡️ Items" }),
-    Misc = Window:AddTab({ Title = "🛠️ Misc" }),
-    Settings = Window:AddTab({ Title = "⚙️ Settings" })
+    Farm = Window:AddTab({ Title = "Farm" }),
+    Combat = Window:AddTab({ Title = "Combat" }),
+    Misc = Window:AddTab({ Title = "Misc" }),
+    Settings = Window:AddTab({ Title = "Settings" })
 }
 
 getgenv().WH = {
@@ -72,19 +54,10 @@ getgenv().WH = {
     FastAttack = false,
     AutoHaki = false,
     BringFruit = false,
-    FarmDelay = 0.12,
-    HopDelay = 300,
-    UIScale = 1.0,
-    AutoV4 = false,
-    FullMoonHop = false,
-    AutoSoulGuitar = false,
-    AutoCDK = false,
-    AutoTTK = false,
-    AutoHollowScythe = false,
-    AutoSharkmanV1 = false,
-    AutoGodhuman = false,
+    FarmDelay = 0.15,
     AutoMirage = false,
-    AutoVolcano = false
+    FullMoonHop = false,
+    AutoV4 = false
 }
 
 local CurrentQuest = {}
@@ -154,7 +127,7 @@ local function CheckQuest()
     end
 end
 
--- Auto Farm
+-- Auto Farm leve
 task.spawn(function()
     while true do
         if WH.AutoFarm then
@@ -165,7 +138,7 @@ task.spawn(function()
 
                 if CurrentQuest.CFrameQuest and (CurrentQuest.CFrameQuest.Position - hrp.Position).Magnitude > 400 then
                     hrp.CFrame = CurrentQuest.CFrameQuest + Vector3.new(0,60,0)
-                    task.wait(0.8)
+                    task.wait(1)
                 end
 
                 if WH.AutoQuest then
@@ -181,7 +154,7 @@ task.spawn(function()
                 end
             end)
         end
-        task.wait(WH.FarmDelay + 0.05)
+        task.wait(WH.FarmDelay + 0.1)  -- Mais leve
     end
 end)
 
@@ -190,9 +163,9 @@ task.spawn(function()
     while true do
         if WH.FastAttack then
             VU:Button1Down(Vector2.new())
-            task.wait(0.065)
+            task.wait(0.07)
         end
-        task.wait()
+        task.wait(0.1)
     end
 end)
 
@@ -204,11 +177,11 @@ task.spawn(function()
                 RS.Remotes.CommF_:InvokeServer("Buso")
             end
         end)
-        task.wait(6)
+        task.wait(8)
     end
 end)
 
--- Bring Fruit (atualizado para update)
+-- Bring Fruit
 task.spawn(function()
     while WH.BringFruit do
         pcall(function()
@@ -218,7 +191,7 @@ task.spawn(function()
                 end
             end
         end)
-        task.wait(0.5)
+        task.wait(1)
     end
 end)
 
@@ -227,7 +200,6 @@ task.spawn(function()
     while WH.FullMoonHop do
         pcall(function()
             if game.Lighting.ClockTime >= 18 or game.Lighting.ClockTime <= 6 then
-                Fluent:Notify({Title = "Full Moon!", Content = "Lua cheia detectada!"})
                 WH.FullMoonHop = false
             else
                 RS.Remotes.CommF_:InvokeServer("hopServer")
@@ -237,143 +209,46 @@ task.spawn(function()
     end
 end)
 
--- Auto V4 simplificado
-task.spawn(function()
-    while WH.AutoV4 do
-        pcall(function()
-            if WS:FindFirstChild("Mirage Island") then
-                Fluent:Notify({Title = "Mirage!", Content = "Mirage spawnado!"})
-            end
-            RS.Remotes.CommF_:InvokeServer("Awakener")
-        end)
-        task.wait(10)
-    end
-end)
-
--- Auto Soul Guitar
-task.spawn(function()
-    while WH.AutoSoulGuitar do
-        pcall(function()
-            RS.Remotes.CommF_:InvokeServer("soulGuitarPuzzle1")
-            RS.Remotes.CommF_:InvokeServer("soulGuitarPuzzle2")
-            RS.Remotes.CommF_:InvokeServer("BuySoulGuitar", true)
-        end)
-        task.wait(5)
-    end
-end)
-
--- Auto CDK
-task.spawn(function()
-    while WH.AutoCDK do
-        pcall(function()
-            RS.Remotes.CommF_:InvokeServer("CDKQuest", "StartTrial")
-            RS.Remotes.CommF_:InvokeServer("CDKQuest", "Progress")
-            RS.Remotes.CommF_:InvokeServer("BuyCursedDualKatana", true)
-        end)
-        task.wait(5)
-    end
-end)
-
--- Auto TTK (Tusk?)
-task.spawn(function()
-    while WH.AutoTTK do
-        pcall(function()
-            RS.Remotes.CommF_:InvokeServer("BuyTusk", true)
-        end)
-        task.wait(5)
-    end
-end)
-
--- Auto Hollow Scythe
-task.spawn(function()
-    while WH.AutoHollowScythe do
-        pcall(function()
-            RS.Remotes.CommF_:InvokeServer("BuyHallowScythe", true)
-        end)
-        task.wait(5)
-    end
-end)
-
--- Auto Sharkman V1
-task.spawn(function()
-    while WH.AutoSharkmanV1 do
-        pcall(function()
-            RS.Remotes.CommF_:InvokeServer("BuySharkmanKarate", true)
-        end)
-        task.wait(5)
-    end
-end)
-
--- Auto Godhuman
-task.spawn(function()
-    while WH.AutoGodhuman do
-        pcall(function()
-            RS.Remotes.CommF_:InvokeServer("BuyGodhuman", true)
-        end)
-        task.wait(5)
-    end
-end)
-
 -- Auto Mirage
 task.spawn(function()
     while WH.AutoMirage do
         pcall(function()
             if WS:FindFirstChild("Mirage Island") then
-                Fluent:Notify({Title = "Mirage!", Content = "Mirage spawnado! TP..."})
                 LP.Character.HumanoidRootPart.CFrame = WS["Mirage Island"].CFrame + Vector3.new(0,100,0)
+                WH.AutoMirage = false
             end
-        end)
-        task.wait(3)
-    end
-end)
-
--- Auto Vulcão
-task.spawn(function()
-    while WH.AutoVolcano do
-        pcall(function()
-            LP.Character.HumanoidRootPart.CFrame = CFrame.new(-5478.39,22.57,-5256.56)  -- CFrame atualizado pós-update
         end)
         task.wait(5)
     end
 end)
 
--- Tabs
-Tabs.Farm:AddSection("Farm Principal 🌾"):AddToggle("AutoFarm", {Title = "Auto Farm Lv 2800 🌽", Default = false, Callback = function(v) WH.AutoFarm = v end})
-Tabs.Farm:AddSection(""):AddToggle("AutoQuest", {Title = "Auto Pegar Quest 📜", Default = true})
-Tabs.Farm:AddSection(""):AddSlider("FarmDelay", {Title = "Velocidade Farm (delay)", Min = 0.05, Max = 0.4, Default = 0.12, Rounding = 2, Callback = function(v) WH.FarmDelay = v end})
+-- Auto V4
+task.spawn(function()
+    while WH.AutoV4 do
+        pcall(function()
+            RS.Remotes.CommF_:InvokeServer("Awakener")
+        end)
+        task.wait(15)
+    end
+end)
 
-Tabs.Combat:AddSection("Combate ⚔️"):AddToggle("FastAttack", {Title = "Fast Attack ⚡", Default = true})
-Tabs.Combat:AddSection(""):AddToggle("AutoHaki", {Title = "Auto Haki 🛡️", Default = true})
-Tabs.Combat:AddSection(""):AddToggle("AutoDeathStep", {Title = "Auto Death Step", Default = false})
-Tabs.Combat:AddSection(""):AddToggle("AutoDragonTalon", {Title = "Auto Dragon Talon", Default = false})
-Tabs.Combat:AddSection(""):AddToggle("AutoElectricClaw", {Title = "Auto Electric Claw", Default = false})
-Tabs.Combat:AddSection(""):AddToggle("AutoSuperhuman", {Title = "Auto Superhuman", Default = false})
+-- Tabs leves
+Tabs.Farm:AddToggle("AutoFarm", {Title = "Auto Farm", Default = false, Callback = function(v) WH.AutoFarm = v end})
+Tabs.Farm:AddToggle("AutoQuest", {Title = "Auto Quest", Default = true})
+Tabs.Farm:AddSlider("FarmDelay", {Title = "Delay Farm", Min = 0.1, Max = 0.5, Default = 0.15, Rounding = 2, Callback = function(v) WH.FarmDelay = v end})
 
-Tabs.Fruit:AddSection("Frutas 🍓"):AddToggle("BringFruit", {Title = "Bring Fruits 🍇", Default = false})
-Tabs.Fruit:AddSection(""):AddToggle("AutoAwakenFruit", {Title = "Auto Awaken Fruits", Default = false})
+Tabs.Combat:AddToggle("FastAttack", {Title = "Fast Attack", Default = false, Callback = function(v) WH.FastAttack = v end})
+Tabs.Combat:AddToggle("AutoHaki", {Title = "Auto Haki", Default = false, Callback = function(v) WH.AutoHaki = v end})
 
-Tabs.RaceV4:AddSection("Auto Race V4 🔮"):AddToggle("AutoV4", {Title = "Auto V4 Full", Default = false})
-Tabs.RaceV4:AddSection(""):AddToggle("FullMoonHop", {Title = "Full Moon Server Hop 🌕", Default = false})
-Tabs.RaceV4:AddSection(""):AddSlider("HopDelay", {Title = "Delay Hop (seg)", Min = 60, Max = 600, Default = 300, Rounding = 0, Callback = function(v) WH.HopDelay = v end})
-Tabs.RaceV4:AddSection(""):AddToggle("AutoMirage", {Title = "Auto Mirage", Default = false})
+Tabs.Fruit:AddToggle("BringFruit", {Title = "Bring Fruits", Default = false, Callback = function(v) WH.BringFruit = v end})
 
-Tabs.Items:AddSection("Auto Items"):AddToggle("AutoSoulGuitar", {Title = "Auto Soul Guitar 🎸", Default = false})
-Tabs.Items:AddSection(""):AddToggle("AutoCDK", {Title = "Auto CDK", Default = false})
-Tabs.Items:AddSection(""):AddToggle("AutoTTK", {Title = "Auto TTK", Default = false})
-Tabs.Items:AddSection(""):AddToggle("AutoHollowScythe", {Title = "Auto Hollow Scythe (Farm Soul Reaper)", Default = false})
-Tabs.Items:AddSection(""):AddToggle("AutoSharkmanV1", {Title = "Auto Sharkman V1", Default = false})
-Tabs.Items:AddSection(""):AddToggle("AutoGodhuman", {Title = "Auto Godhuman", Default = false})
+Tabs.RaceV4:AddToggle("AutoV4", {Title = "Auto V4", Default = false, Callback = function(v) WH.AutoV4 = v end})
+Tabs.RaceV4:AddToggle("FullMoonHop", {Title = "Full Moon Hop", Default = false, Callback = function(v) WH.FullMoonHop = v end})
+Tabs.RaceV4:AddToggle("AutoMirage", {Title = "Auto Mirage", Default = false, Callback = function(v) WH.AutoMirage = v end})
 
-Tabs.Misc:AddSection("Misc"):AddToggle("AutoVolcano", {Title = "Auto Vulcão", Default = false})
-Tabs.Misc:AddSection(""):AddButton({Title = "Teleport Mirage 🌀", Callback = function() Fluent:Notify({Title="Teleport", Content = "Tentando TP Mirage..."}) end})
-Tabs.Misc:AddSection(""):AddToggle("AutoStats", {Title = "Auto Stats", Default = false})
-Tabs.Misc:AddSection(""):AddToggle("AutoRaid", {Title = "Auto Raid", Default = false})
-Tabs.Misc:AddSection(""):AddToggle("BossFarm", {Title = "Boss Farm (ex: Soul Reaper)", Default = false})
-Tabs.Misc:AddSection(""):AddToggle("ESP", {Title = "ESP Mobs/Fruits", Default = false})
+Tabs.Misc:AddButton({Title = "Destroy Hub", Callback = function() Fluent:Destroy() end})
 
-Tabs.Settings:AddSection("Ajustes UI ⚙️"):AddSlider("UIScale", {Title = "Tamanho UI", Min = 0.8, Max = 1.5, Default = 1.0, Rounding = 2, Callback = function(v) Window:Resize(UDim2.fromOffset(620*v, 520*v)) end})
-Tabs.Settings:AddSection(""):AddColorpicker("BorderColor", {Title = "Cor Bordas", Default = Color3.fromRGB(90,90,100), Callback = function(v) Colors.Border = v Window:SetAccentColor(v) end})
-Tabs.Settings:AddSection(""):AddButton({Title = "Destroy Hub 🗑️", Callback = function() Fluent:Destroy() end})
+Tabs.Settings:AddSlider("UIScale", {Title = "Tamanho UI", Min = 0.8, Max = 1.2, Default = 1.0, Rounding = 2, Callback = function(v) Window:Resize(UDim2.fromOffset(520*v, 440*v)) end})
 
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
@@ -382,6 +257,6 @@ SaveManager:SetFolder("WorldHub")
 SaveManager:BuildConfigSection(Tabs.Settings)
 SaveManager:LoadAutoloadConfig()
 
-Fluent:Notify({Title = "World Hub", Content = "Carregado com sucesso • Todas funções adicionadas • Seguro", Duration = 6})
+Fluent:Notify({Title = "World Hub", Content = "Versão leve carregada • Teste Auto Farm", Duration = 5})
 
-print("World Hub carregado com segurança")
+print("World Hub Leve carregado")
